@@ -1,0 +1,29 @@
+<header class="app-header">
+    <div class="header-content">
+        <div class="header-left">
+            <a href="/" class="logo">
+                <i class="fas fa-solar-panel"></i> 
+                <span>SolarCalc</span>
+            </a>
+            <nav class="nav-links">
+                <a href="/system-size" class="nav-link {% if request.path == '/system-size' %}active{% endif %}">
+                    <i class="fas fa-bolt"></i>
+                    <span>Quick Estimate</span>
+                </a>
+                <a href="/detailed-calculator" class="nav-link {% if request.path == '/detailed-calculator' %}active{% endif %}">
+                    <i class="fas fa-calculator"></i>
+                    <span>Detailed Calculator</span>
+                </a>
+				<a href="/materials" class="nav-link {% if request.path == '/materials' %}active{% endif %}">
+    <i class="fas fa-file-alt"></i>
+    <span>Materials</span>
+</a>
+				<a href="/about" class="nav-link {% if request.path == '/about' %}active{% endif %}">
+        <i class="fas fa-info-circle"></i>
+        <span>About</span>
+    </a>
+            </nav>
+        </div>
+        
+    </div>
+</header>
