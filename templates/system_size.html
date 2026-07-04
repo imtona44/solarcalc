@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}System Size Calculator{% endblock %}
+
+{% block content %}
+<div class="calculator-container">
+    <div class="calculator-header">
+        <h1><i class="fas fa-bolt"></i> Solar System Size Calculator</h1>
+        <p>Estimate your required solar system size based on electricity consumption</p>
+    </div>
+    
+    <div class="calculator-form">
+        <div class="input-group">
+            <label for="monthly_bill"><i class="fas fa-money-bill-wave"></i> Monthly Electricity Bill (₱)</label>
+            <input type="number" class="no-spinner" id="monthly_bill" placeholder="Enter your monthly bill amount">
+        </div>
+        
+        <div class="input-group">
+            <label for="actual_consumption"><i class="fas fa-plug"></i> Actual Consumption (kWh)</label>
+            <input type="number" class="no-spinner" id="actual_consumption" placeholder="Enter your monthly kWh usage">
+        </div>
+        
+        <button id="calculate-btn" class="btn btn-primary">
+            <i class="fas fa-calculator"></i> Calculate System Size
+        </button>
+    </div>
+    
+    <div class="results" id="results">
+        <div class="result-item">
+            <div class="result-title"><i class="fas fa-calendar-day"></i> Daily Consumption</div>
+            <div class="result-value" id="daily-consumption">-</div>
+        </div>
+        
+        <div class="result-item">
+            <div class="result-title"><i class="fas fa-rupee-sign"></i> Electricity Rate</div>
+            <div class="result-value" id="rate">-</div>
+        </div>
+        
+        <div class="result-item">
+            <div class="result-title"><i class="fas fa-solar-panel"></i> Recommended System Size</div>
+            <div class="result-value">
+                <span class="system-size" id="system-size">-</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="calculator-note">
+        <p><i class="fas fa-info-circle"></i> Note: Calculation assumes 16% panel efficiency and 24 equivalent sun hours</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const calculateBtn = document.getElementById('calculate-btn');
+    const resultsDiv = document.getElementById('results');
+    
+    calculateBtn.addEventListener('click', function() {
+        const monthlyBill = document.getElementById('monthly_bill').value;
+        const actualConsumption = document.getElementById('actual_consumption').value;
+        
+        if (!monthlyBill || !actualConsumption) {
+            alert('Please enter both values');
+            return;
+        }
+        
+        calculateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Calculating...';
+        calculateBtn.disabled = true;
+        
+        fetch('/api/calculate-system-size', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                monthly_bill: monthlyBill,
+                actual_consumption: actualConsumption
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            calculateBtn.innerHTML = '<i class="fas fa-calculator"></i> Calculate System Size';
+            calculateBtn.disabled = false;
+            
+            if (data.error) {
+                alert('Error: ' + data.error);
+                return;
+            }
+            
+            document.getElementById('daily-consumption').textContent = data.daily_consumption + ' kWh';
+            document.getElementById('rate').textContent = '₱' + data.rate + ' per kWh';
+            document.getElementById('system-size').textContent = data.system_size + ' kWp';
+            
+            resultsDiv.style.display = 'block';
+        })
+        .catch(error => {
+            calculateBtn.innerHTML = '<i class="fas fa-calculator"></i> Calculate System Size';
+            calculateBtn.disabled = false;
+            alert('Calculation error: ' + error.message);
+        });
+    });
+});
+</script>
+{% endblock %}

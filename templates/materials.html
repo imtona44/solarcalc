@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+
+{% block title %}Bills Of Materials{% endblock %}
+
+{% block content %}
+<div class="materials-container">
+    <h1><i class="fas fa-file-alt"></i> BILL OF MATERIALS</h1>
+    <p class="subtitle">Complete list of required materials for your solar installation</p>
+
+    <!-- BILL OF MATERIALS TABLE -->
+    <div class="table-container">
+        <h2 class="table-title">A. MAIN COMPONENTS</h2>
+        <table class="materials-table">
+            <thead>
+                <tr>
+                    <th>Item No.</th>
+                    <th>Qty</th>
+                    <th>Unit</th>
+                    <th>Item Description</th>
+                    <th>Specs</th>
+                  
+                </tr>
+            </thead>
+            <tbody>
+                <!-- PV Requirements -->
+                <tr>
+                    <td>1</td>
+                    <td>{% if 'solar_results' in session %}{{ session.solar_results.num_panels }}{% else %}N/A{% endif %}</td>
+                    <td>panel</td>
+                    <td>Solar PV Panel</td>
+                    <td>
+                        {% if 'solar_results' in session %}
+                            {{ session.solar_results.panel_rating }}W 
+                        {% else %}
+                            N/A (Calculate first)
+                        {% endif %}
+                    </td>
+                   
+                </tr>
+                
+                <!-- Battery Bank -->
+                <tr>
+                    <td>2</td>
+                    <td>1</td>
+                    <td>set</td>
+                    <td>Battery Bank</td>
+                    <td>
+                        {% if 'solar_results' in session %}
+                            {{ session.solar_results.battery_ah }}Ah @ {{ session.solar_results.voltage }}V
+                        {% else %}
+                            N/A (Calculate first)
+                        {% endif %}
+                    </td>
+                   
+                </tr>
+                
+                <!-- Inverter -->
+                <tr>
+                    <td>3</td>
+                    <td>1</td>
+                    <td>unit</td>
+                    <td> Inverter</td>
+                    <td>
+                        {% if 'solar_results' in session %}
+                            {{ session.solar_results.inverter_size }}W
+                        {% else %}
+                            N/A (Calculate first)
+                        {% endif %}
+                    </td>
+                 
+                </tr>
+                
+                <!-- Charge Controller -->
+                <tr>
+                    <td>4</td>
+                    <td>1</td>
+                    <td>unit</td>
+                    <td>Charge Controller</td>
+                    <td>
+                        {% if 'solar_results' in session %}
+                            {{ session.solar_results.charge_ctrl_rating }}A MPPT
+                        {% else %}
+                            N/A (Calculate first)
+                        {% endif %}
+                    </td>
+              
+                </tr>
+                
+                <!-- PV Mounting -->
+                <tr>
+                    <td>5</td>
+                    <td>1</td>
+                    <td>lot</td>
+                    <td>PV Mounting Structure</td>
+                    <td>Roof mounting kit with rails, clamps, and hardware</td>
+                
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- PROTECTIVE DEVICES TABLE -->
+    <div class="table-container">
+        <h2 class="table-title">B. PROTECTIVE DEVICES</h2>
+        <table class="materials-table">
+            <thead>
+                <tr>
+                    <th>Item No.</th>
+					<th>Qty</th>
+                    <th>Unit</th>
+                    <th>Item Description</th>
+                
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+					<td>1</td>
+                    <td>lot</td>
+                    <td>Panel Board</td>
+                   
+                    <td>Consult with a certified solar PV expert for detailed protective device specifications</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>1</td>
+                    <td>lot</td>
+                    <td>AC Circuit Breaker</td>
+                   
+                    <td>Consult with a certified solar PV expert for detailed protective device specifications</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>1</td>
+                    <td>lot</td>
+                    <td>DC Circuit Breaker</td>
+                   
+                    <td>Consult with a certified solar PV expert for detailed protective device specificationsr</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                   <td>1</td>
+                    <td>lot</td>
+                    <td>AC Surge Protector</td>
+                  
+                    <td>Consult with a certified solar PV expert for detailed protective device specifications</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>1</td>
+                    <td>lot</td>
+                    <td>DC Surge Protector</td>
+                   
+                    <td>Consult with a certified solar PV expert for detailed protective device specifications</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>1</td>
+                    <td>lot</td>
+                    <td>Grounding Kit</td>
+                   
+                    <td>Consult with a certified solar PV expert for detailed protective device specifications</td>
+                </tr>
+					
+            </tbody>
+        </table>
+    </div>
+
+    <!-- CONSUMABLES TABLE -->
+    <div class="table-container">
+        <h2 class="table-title">C. CONSUMABLES</h2>
+        <table class="materials-table">
+            <thead>
+                <tr>
+                    <th>Item No.</th>
+                    <th>Qty</th>
+                    <th>Unit</th>
+                    <th>Item Description</th>
+                  
+					<th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                   <td>1</td>
+                    <td>lot</td>
+                    <td>PV Wire</td>
+                   
+					<td>Consult with a certified solar PV expert for detailed consumables specifications</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>1</td>
+                    <td>lot</td>
+                    <td>AC Wire</td>
+                   
+					<td>Consult with a certified solar PV expert for detailed consumables specifications</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                   <td>1</td>
+                    <td>lot</td>
+                    <td>DC Wire</td>
+                   
+					<td>Consult with a certified solar PV expert for detailed consumables specifications</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>1</td>
+                    <td>lot</td>
+                    <td>Wire Way/Conduit</td>              
+                  
+					<td>Consult with a certified solar PV expert for detailed consumables specifications</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>1</td>
+                    <td>lot</td>
+                    <td>Electrical Tape</td>
+                  
+					<td>Consult with a certified solar PV expert for detailed consumables specifications</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>1</td>
+                    <td>lot</td>
+                    <td>Connectors</td>
+                 
+					<td>Consult with a certified solar PV expert for detailed consumables specifications</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                   <td>1</td>
+                    <td>lot</td>
+                    <td>Installation Kit</td>
+                 
+					<td>Consult with a certified solar PV expert for detailed consumables specifications</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    
+       
+        <div class="button-group">
+            <button onclick="window.print()" class="btn btn-primary">
+                <i class="fas fa-print"></i> Print Materials List
+            </button>
+            
+        </div>
+   
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function saveAsPDF() {
+    // PDF generation implementation would go here
+    alert("PDF generation would be implemented here. In production, use a library like jsPDF.");
+}
+</script>
+{% endblock %}

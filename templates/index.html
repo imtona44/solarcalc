@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero">
+    <div class="hero-content">
+        <h1>Solar Energy Calculators</h1>
+        <pp>Choose the calculator that fits your needs</pp>
+        <div class="calculator-cards">
+            <a href="/system-size" class="calculator-card">
+                <i class="fas fa-bolt"></i>
+                <h3>Quick System Size Estimator</h3>
+                <p>Get a rough estimate of required solar system size based on your electricity bill</p>
+            </a>
+            
+            <a href="/detailed-calculator" class="calculator-card">
+                <i class="fas fa-solar-panel"></i>
+                <h3>Detailed PV System Calculator</h3>
+                <p>Calculate complete solar system components with advanced parameters</p>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+/* Header Layout */
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align items to the top */
+}
+
+.header-left {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Images container */
+.header-images {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-left: auto; 
+}
+
+
+.nav-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+    }
+    
+    .header-images {
+        margin: 1rem 0;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .nav-links {
+        justify-content: flex-start;
+    }
+}
